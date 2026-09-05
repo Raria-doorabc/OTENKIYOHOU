@@ -13,23 +13,17 @@ def get_location(city_name):
     params = {
         "query": city_name,
         "appid": client_id,
+        "output": "json"
     }
     response = requests.get(url, params=params)
     
-    root = ET.fromstring(response.text)
     
     print(response.status_code)
     print(response.text)
 
-    namespace = {
-        "ydf": "http://olp.yahooapis.jp/ydf/1.0"
-    }
+    data = response.json()
+    coordinates = data["Feature"][0]["Geometry"]["Coordinates"]
 
-    coordinates = root.find(".//ydf:Coordinates", namespace)
-
-    print(coordinates.text)
-
-    longtitude, latitude = coordinates.text.split(",")
+    longtitude, latitude = coordinates.split(",")
 
     return longtitude, latitude
-
