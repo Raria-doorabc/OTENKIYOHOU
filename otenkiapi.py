@@ -4,9 +4,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client_id = os.getenv("CLIENT_ID")
-print(f"CLIENT_ID: {client_id}")
+def get_weather(longitude, latitude):
+    client_id = os.getenv("CLIENT_ID")
+    url = "https://map.yahooapis.jp/weather/V1/place"
+    params = {
+        "coordinates": f"{longitude},{latitude}",
+        "appid": client_id,
+        "output": "json"
+    }
+    response = requests.get(url, params=params)
 
-res=requests.get(f"https://map.yahooapis.jp/weather/V1/place?coordinates=139.6917,35.6895&appid={client_id}&output=json")
-print(res.status_code)
-print(res.text)
+    print(response.status_code)
+    print(response.text)

@@ -5,13 +5,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client_id = os.getenv("CLIENT_ID")
 
 def get_location(city_name):
+    client_id = os.getenv("CLIENT_ID")
+
     url = "https://map.yahooapis.jp/geocode/cont/V1/contentsGeoCoder"
     params = {
         "query": city_name,
-        "appid": client_id
+        "appid": client_id,
     }
     response = requests.get(url, params=params)
     
